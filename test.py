@@ -1,0 +1,11 @@
+u='中文'
+print (u)
+print (type(u))
+str=u.encode('gb2312')
+print (str)
+str2=u.encode('utf-8')
+print (type(str2))
+print (str2)
+print (str.decode('gb2312'))
+print (str2.decode('utf-8'))
+print (type(str2.decode('utf-8')))
