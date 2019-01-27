@@ -5,18 +5,27 @@ class lewei50():
         self.userkey=userkey
         self.UploadPayload=[]
         self.gw=gw
-    def UpdateMessage(self,message):
-        JsonMessage={}
-        JsonHeader={}
-        JsonMessage['Message']=message
-        JsonHeader['userkey']=self.userkey
-        print (JsonHeader)
-        url='http://www.lewei50.com/api/V1/gateway/updatelog/'+self.gw
+        self.sensor=[]
+        self.logurl='http://www.lewei50.com/api/V1/gateway/updatelog/'+self.gw
+
+        self.sensorurl='http://www.lewei50.com/api/V1/gateway/UpdateSensors/'+self.gw
+        self.JsonHeader={'userkey':userkey}
+
+    def UploadMessage(self,message):
+        JsonMessage={'Message':message}
         UploadMessage=json.dumps(JsonMessage)
 
-        r=requests.post(url,UploadMessage,headers=JsonHeader)
+        r=requests.post(self.logurl,UploadMessage,headers=self.JsonHeader)
         print (r.text)
-
+    def UpdateSensor(self,name,value):
+        SensorDict={}
+        SensorDict['Name']=name
+        SensorDict['Value']=value
+        self.sensor.append(SensorDict)
+        print (self.sensor)
+    def UploadSensor(self):
+        r=requests.post(self.sensorurl,json.dumps(self.sensor),headers=self.JsonHeader)
+        print(r.text)
 
 
     def print_all(self):
